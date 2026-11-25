@@ -92,6 +92,7 @@ async function compress(file) {
   });
 }
 function App() {
+  const [mapExpanded, setMapExpanded] = useState(false);
   const [authed, setAuthed] = useState(null),
     [pass, setPass] = useState(""),
     [error, setError] = useState(""),
@@ -633,6 +634,39 @@ function App() {
                 </button>
               ))}
             </div>
+            <section className="travel-map" aria-label="제주 전체 지도">
+              <div className="travel-map-heading">
+                <div>
+                  <span className="eyebrow">OUR JEJU MAP</span>
+                  <h2>제주를 한눈에.</h2>
+                </div>
+                <button
+                  type="button"
+                  aria-expanded={mapExpanded}
+                  aria-controls="jeju-big-map"
+                  onClick={() => setMapExpanded((value) => !value)}
+                >
+                  {mapExpanded ? "지도 줄이기" : "더 크게 보기"}
+                </button>
+              </div>
+              <iframe
+                id="jeju-big-map"
+                className={mapExpanded ? "expanded" : ""}
+                title="확대하고 이동할 수 있는 제주 전체 지도"
+                loading="lazy"
+                referrerPolicy="no-referrer"
+                src="https://www.openstreetmap.org/export/embed.html?bbox=126.12%2C33.15%2C126.93%2C33.58&layer=mapnik"
+              />
+              <div className="travel-map-footer">
+                <p>지도를 확대하거나 움직여 제주를 둘러보세요.</p>
+                <button className="primary" onClick={() => setMenu("route")}>
+                  <Route size={16} /> 길찾기 선택
+                </button>
+              </div>
+              <p className="travel-map-caption">
+                제주 전체를 보는 지도예요. 일정 장소와 자동차 경로는 길찾기에서 확인하세요.
+              </p>
+            </section>
             <div className="board">
               <section className="itinerary">
                 <div className="daytitle">
